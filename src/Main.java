@@ -18,7 +18,7 @@ public class Main {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("https://api.weather.yandex.ru/v2/forecast?lat=55.75&lon=37.62&limit=" + limit))
                 .GET()  // явно указываем, что хотим GET (по умолчанию для запроса без тела и так будет GET)
-                .header("X-Yandex-Weather-Key", "78dff0ca-0093-42ed-a972-b4e0fb646104")
+                .header("X-Yandex-Weather-Key", "код")
                 .build();
 
         // 3. Отправляем запрос и получаем ответ.
@@ -37,7 +37,7 @@ public class Main {
 
         // 6. Считаем и выводим среднюю температуру за limit дней
         JSONArray forecasts = root.getJSONArray("forecasts");
-        int temp_sum = 0;
+        double temp_sum = 0;
 
         for (int i = 0; i < limit; i++){
             //forecasts[*].parts.day.temp_avg путь к значению
@@ -47,18 +47,6 @@ public class Main {
             temp_sum += dayly_temp;
         }
         System.out.println("Средняя температура за " + limit + " дней: " + temp_sum / limit);
-
-//        JSONArray phoneNumbers = root.getJSONArray("forecasts");
-//        for (int i = 0; i < phoneNumbers.length(); i++) {
-//            String type = phoneNumbers.getJSONObject(i).getString("type");
-//            String number = phoneNumbers.getJSONObject(i).getString("number");
-//        }
-
-//        if (body.length() > 100) {
-//            System.out.println("Первые 100 символов ответа: " + body.substring(0, 100) + "...");
-//        } else {
-//            System.out.println("Тело ответа: " + body);
-//        }
     }
 }
 
